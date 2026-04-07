@@ -9,9 +9,11 @@ all_pitches[:100].to_csv("data/2025_all_pitches_preview.csv", index=False)
 
 in_play = all_pitches[(all_pitches['description'] == 'hit_into_play') & (~all_pitches['estimated_ba_using_speedangle'].isna())]
 data = in_play[[
-    'game_pk', 'home_team', 'away_team', 'batter', 'pitcher', 'launch_speed', 'launch_angle', 'hit_distance_sc', 'hc_x', 'hc_y', 'effective_speed',
+    'game_pk', 'home_team', 'away_team', 'inning_topbot', 'batter', 'pitcher', 'launch_speed', 'launch_angle', 'hit_distance_sc', 'hc_x', 'hc_y', 'effective_speed',
     'release_spin_rate', 'estimated_ba_using_speedangle', 'events'
-    ]]
+    ]].copy()
+data['team'] = data.apply(lambda row: row['home_team'] if row['inning_topbot'] == 'Bot' else row['away_team'], axis=1)
+data = data.drop(columns=['home_team', 'away_team', 'inning_topbot'])
 data = data.rename(columns = {'estimated_ba_using_speedangle': 'xBA',
                               'hit_distance_sc': 'hit_distance',
                               'hc_x': 'hit_location_x',
