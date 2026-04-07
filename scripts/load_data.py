@@ -4,7 +4,7 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 all_pitches = statcast('2025-03-27', '2025-09-28')
-all_pitches[:100].to_csv("data/2025_all_pitches.csv", index=False)
+all_pitches[:100].to_csv("data/2025_all_pitches_preview.csv", index=False)
 
 in_play = all_pitches[(all_pitches['description'] == 'hit_into_play') & (~all_pitches['estimated_ba_using_speedangle'].isna())]
 data = in_play[[
@@ -16,4 +16,5 @@ data = data.rename(columns = {'estimated_ba_using_speedangle': 'xBA',
                               'effective_speed': 'pitch_speed'})
 data['hit'] = [1 if row['events'] in ['single', 'double', 'triple', 'home_run'] else 0 for index, row in data.iterrows()]
 
-data.to_csv("data/2025_hits.csv", index=False)
+data.to_parquet("data/2025_hits.parquet", index=False)
+data[:100].to_csv("data/2025_hits_preview.csv", index=False)
