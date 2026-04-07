@@ -20,9 +20,9 @@ plt.figure(figsize=(10, 6))
 plt.scatter(batter_df['avg'], batter_df['xBA'])
 plt.xlabel('Actual Batting Average')
 plt.ylabel('xBA')
-plt.title('xBA vs Actual Batting Average for 2025 Season')
+plt.title('Player xBA vs Actual Batting Average for 2025 Season')
 plt.grid()
-plt.savefig("data/xba_vs_avg.png")
+plt.savefig("data/player_xba_vs_avg.png")
 
 player_id = 678009
 player_data = data[data['batter'] == player_id]
