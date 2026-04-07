@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 all_pitches = pd.read_parquet("data/2025_all_pitches.parquet")
 data = pd.read_parquet("data/2025_hits.parquet")
 batter_data = {}
-#get list of unique batter ids with more than 50 at bats
+# Only use batters with more than 50 plate appearances
 batter_list = data['batter'].value_counts()
 batter_list = batter_list[batter_list > 50].index.tolist()
 for batter in batter_list:
@@ -24,7 +24,6 @@ plt.title('xBA vs Actual Batting Average for 2025 Season')
 plt.grid()
 plt.savefig("data/xba_vs_avg.png")
 
-#Single player boxplot of xba for 0 and 1 hit outcomes
 player_id = 678009
 player_data = data[data['batter'] == player_id]
 plt.figure(figsize=(8, 6))
@@ -34,4 +33,4 @@ plt.suptitle('')
 plt.xlabel('Hit Outcome (0 = No Hit, 1 = Hit)')
 plt.ylabel('xBA')
 plt.grid()
-plt.savefig(f"data/player_{player_id}_xba_boxplot.png")
+plt.savefig(f"data/player_xba_boxplot.png")
