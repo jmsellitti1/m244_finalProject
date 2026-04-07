@@ -4,6 +4,7 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 all_pitches = statcast('2025-03-27', '2025-09-28')
+all_pitches = all_pitches[all_pitches['events'].notna()]
 all_pitches.to_parquet("data/2025_all_pitches.parquet", index=False)
 all_pitches[:100].to_csv("data/2025_all_pitches_preview.csv", index=False)
 
