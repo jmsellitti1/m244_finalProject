@@ -7,11 +7,80 @@ format: pdf
 
 # Contents
 
-## Exploring the Data Answer the following questions:
-What is your outcome variable(s)?
-How well does it measure the outcome you are interested?
-How does it relate to your expectations? What are your key explanatory variables?
-In addition, create a table of summary statistics for the variables you are planning to use.
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(reticulate)
+reticulate::py_install("pyarrow")
+```
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+## Exploring the Data
+
+### What is your outcome variable(s)? How well does it measure the outcome you are interested? How does it relate to your expectations? What are your key explanatory variables?
+
+Our outcome variable for this project is xBA (Expected Batting Average). This metric is used to calculate the expected batting average of a batted ball, and subsequently the likelihood that it results in a hit. For instance, a home run well beyond the fence would have an xBA of 1.000, since it will result in a hit 100% of the time. xBA has been shown to be a useful metric, and when used in conjunction with actual batting average (AVG), provides an additional layer of complexity in quantifying hitting performance. This relationship can be visualized in the graphs below, plotting AVG vs xBA to determine which players and teams have been the luckiest or unluckiest.
+
+```{python}
+all_pitches = pd.read_parquet("../data/2025_all_pitches.parquet")
+data = pd.read_parquet("../data/2025_hits.parquet")
+team_data = {}
+for team in data['team'].unique():
+    single_data = data[data['team'] == team]
+    team_xba = single_data['xBA'].mean()
+    team_strikeouts_count = len(all_pitches[
+        ((all_pitches['inning_topbot'] == 'Top') & (all_pitches['away_team'] == team) |
+         (all_pitches['inning_topbot'] == 'Bot') & (all_pitches['home_team'] == team)) &
+        (all_pitches['events'] == 'strikeout')
+    ])
+    team_avg = len(single_data[single_data['hit'] == 1]) / (len(single_data) + team_strikeouts_count) # Not 100% accurate
+    team_data[team] = [team_xba, team_avg]
+
+team_df = pd.DataFrame.from_dict(team_data, orient='index', columns=['xBA', 'avg'])
+team_df = team_df.sort_values(by='xBA', ascending=False)
+plt.figure(figsize=(10, 6))
+plt.scatter(team_df['avg'], team_df['xBA'])
+plt.xlabel('Actual Batting Average')
+plt.ylabel('xBA')
+plt.title('Team xBA vs Actual Batting Average for 2025 Season')
+plt.grid()
+plt.show()
+```
+
+```{python}
+all_pitches = pd.read_parquet("../data/2025_all_pitches.parquet")
+data = pd.read_parquet("../data/2025_hits.parquet")
+batter_data = {}
+# Only use batters with more than 50 plate appearances
+batter_list = data['batter'].value_counts()
+batter_list = batter_list[batter_list > 50].index.tolist()
+for batter in batter_list:
+    single_data = data[data['batter'] == batter]
+    batter_xba = single_data['xBA'].mean()
+    batter_strikeouts_count = len(all_pitches[(all_pitches['batter'] == batter) & (all_pitches['events'] == 'strikeout')])
+    batter_avg = len(single_data[single_data['hit'] == 1]) / (len(single_data) + batter_strikeouts_count) # Not 100% accurate
+    batter_data[batter] = [batter_xba, batter_avg]
+    
+batter_df = pd.DataFrame.from_dict(batter_data, orient='index', columns=['xBA', 'avg'])
+batter_df = batter_df.sort_values(by='xBA', ascending=False)
+plt.figure(figsize=(10, 6))
+plt.scatter(batter_df['avg'], batter_df['xBA'])
+plt.xlabel('Actual Batting Average')
+plt.ylabel('xBA')
+plt.title('Player xBA vs Actual Batting Average for 2025 Season')
+plt.grid()
+plt.show()
+```
+
+
+The key explanatory variables in calculating xBA are exit velocity and launch angle. This high-level metrics can be immediately useful in predicting how far a batted ball will travel, and in what direction. With the MLB's advanced Statcast systems, the calculation also includes park-specific information such as field dimensions, and the batter's sprint speed. However, for the purposes of this project, we will also be utilizing data such as pitch speed, rotation, and the location where the ball landed. These are all theoretically useful features for predicting the hit probability, but could introduce unnecessary complexity and data inconsistency (since hit location coordinate systems are not centered at the same place in every ballpark).
+
+### Create a table of summary statistics for the variables you are planning to use.
+
+
 
 ## Data Wrangling and Transformation:
 What data cleaning did you have to do?
