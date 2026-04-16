@@ -22,7 +22,7 @@ plt.xlabel('Actual Batting Average')
 plt.ylabel('xBA')
 plt.title('Player xBA vs Actual Batting Average for 2025 Season')
 plt.grid()
-plt.savefig("data/player_xba_vs_avg.png")
+plt.savefig("figures/player_xba_vs_avg.png")
 
 player_id = 678009
 player_data = data[data['batter'] == player_id]
@@ -33,4 +33,4 @@ plt.suptitle('')
 plt.xlabel('Hit Outcome (0 = No Hit, 1 = Hit)')
 plt.ylabel('xBA')
 plt.grid()
-plt.savefig(f"data/player_xba_boxplot.png")
+plt.savefig(f"figures/player_xba_boxplot.png")
