@@ -88,6 +88,8 @@ How did you wrangle the data?
 Are you deciding to exclude any observations? If so, why?
 Did you have to create any new variables from existing variables? If so, how and why?
 
+The data we pulled was already very clean and was not missing any important variables for any observations. The data contains a list of every pitch that was thrown throughout the season, but since we are analyzing batting averages and efficiency, we removed all observations that did not result in a ball being put into play, as these do not have the impact metrics that we are looking to analyze. The data came with a game id variable that we split up to obtain the home team, away team, and stadium from. We wanted to take the stadium, as different ballparks have different field lengths and fence heights, so this will have an effect on many of our hits. By obtaining the home and away teams, we are able to look at full team data, as well as possibly compare performances at home vs. on the road for teams.
+
 ## Codebook:
 You must add a codebook – a description of all variables you are using, including ones you are creating for this project – to the README.md page of the data/ folder of your repo.
 
