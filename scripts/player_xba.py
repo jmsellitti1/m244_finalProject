@@ -24,7 +24,7 @@ plt.title('Player xBA vs Actual Batting Average for 2025 Season')
 plt.grid()
 plt.savefig("figures/player_xba_vs_avg.png")
 
-player_id = 678009
+player_id = 592450 # Aaron Judge
 player_data = data[data['batter'] == player_id]
 plt.figure(figsize=(8, 6))
 player_data.boxplot(column='xBA', by='hit')
