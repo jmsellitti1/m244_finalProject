@@ -51,8 +51,6 @@ plt.show()
 ```
 
 ```{python}
-all_pitches = pd.read_parquet("../data/2025_all_pitches.parquet")
-data = pd.read_parquet("../data/2025_hits.parquet")
 batter_data = {}
 # Only use batters with more than 50 plate appearances
 batter_list = data['batter'].value_counts()
@@ -75,12 +73,46 @@ plt.grid()
 plt.show()
 ```
 
+```{python}
+team_stats = pd.read_csv("../data/2025_team_stats.csv")
+team_df['Win%'] = team_stats.set_index('Team').loc[team_df.index]['Win%']
+plt.figure(figsize=(10, 6))
+plt.scatter(team_df['Win%'], team_df['xBA'])
+plt.xlabel('Win Percentage')
+plt.ylabel('xBA')
+plt.title('Team xBA vs Win Percentage for 2025 Season')
+plt.grid()
+plt.show()
+```
+
+```{python}
+player_id = 592450 # Aaron Judge
+player_data = data[data['batter'] == player_id]
+plt.figure(figsize=(8, 6))
+player_data.boxplot(column='xBA', by='hit')
+plt.title(f'xBA Distribution for Player ID: {player_id}')
+plt.suptitle('')
+plt.xlabel('Hit Outcome (0 = No Hit, 1 = Hit)')
+plt.ylabel('xBA')
+plt.grid()
+plt.show()
+plt.close()
+```
 
 The key explanatory variables in calculating xBA are exit velocity and launch angle. This high-level metrics can be immediately useful in predicting how far a batted ball will travel, and in what direction. With the MLB's advanced Statcast systems, the calculation also includes park-specific information such as field dimensions, and the batter's sprint speed. However, for the purposes of this project, we will also be utilizing data such as pitch speed, rotation, and the location where the ball landed. These are all theoretically useful features for predicting the hit probability, but could introduce unnecessary complexity and data inconsistency (since hit location coordinate systems are not centered at the same place in every ballpark).
 
 ### Create a table of summary statistics for the variables you are planning to use.
 
-
+```{python}
+data = pd.read_parquet("../data/2025_hits.parquet")
+df = data[['launch_speed', 'launch_angle', 'hit_distance',
+          'hit_location_x', 'hit_location_y',
+          'pitch_speed', 'release_spin_rate', 'xBA']]
+summary = df.describe()
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', 80)
+print(summary)
+```
 
 ## Data Wrangling and Transformation:
 What data cleaning did you have to do?
@@ -89,15 +121,3 @@ Are you deciding to exclude any observations? If so, why?
 Did you have to create any new variables from existing variables? If so, how and why?
 
 The data we pulled was already very clean and was not missing any important variables for any observations. The data contains a list of every pitch that was thrown throughout the season, but since we are analyzing batting averages and efficiency, we removed all observations that did not result in a ball being put into play, as these do not have the impact metrics that we are looking to analyze. The data came with a game id variable that we split up to obtain the home team, away team, and stadium from. We wanted to take the stadium, as different ballparks have different field lengths and fence heights, so this will have an effect on many of our hits. By obtaining the home and away teams, we are able to look at full team data, as well as possibly compare performances at home vs. on the road for teams.
-
-## Codebook:
-You must add a codebook – a description of all variables you are using, including ones you are creating for this project – to the README.md page of the data/ folder of your repo.
-
-## Data Visualization:
-You must include at least 4 visualizations of your data. You must include your outcome variable in at least two plots and your key explanatory variable in at least two of these plots. You must use visualizations that are appropriate for the data type (categorical vs numeric, continuous vs discrete) of your outcome and explanatory variables. For example, you should not use a histogram to plot a categorical variable.
-
-## (OPTIONAL) Data Analysis:
-If you would like, you can start to sketch out some data analysis/modeling. This will not be counted for or against you, but allows you to get ahead and for me and your peers to provide early feedback.
-
-## Formatting:
-All parts of the Exploratory Data Analysis should be professionally formatted. For example, this means labeling plots and figures. The final product should be a pdf or html file rendered from a quarto file. You must comment your code! You must suppress all warnings and messages. All plots must be professional in appearance, including meaningful axes and legend label and titles. For this Exploratory Analysis assignment, please display your code in the rendered output. Style and format do count for this assignment, so please take the time to make sure that everything looks good and that your data and code are properly formatted.
