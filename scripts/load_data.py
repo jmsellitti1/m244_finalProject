@@ -2,10 +2,8 @@ from pybaseball import statcast, team_batting, batting_stats
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-team_stats = team_batting(2025)
-team_stats.to_csv("data/2025_team_batting.csv", index=False)
-player_stats = batting_stats(2025)
-player_stats.to_csv("data/2025_player_batting.csv", index=False)
+# player_stats = batting_stats(2025)
+# player_stats.to_csv("data/2025_player_batting.csv", index=False)
 
 all_pitches = statcast('2025-03-27', '2025-09-28')
 all_pitches = all_pitches[all_pitches['events'].notna()]
