@@ -1,4 +1,5 @@
 from pybaseball import statcast, team_batting, batting_stats
+import numpy as np
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -23,6 +24,22 @@ data = data.rename(columns = {'estimated_ba_using_speedangle': 'xBA',
                               'hc_y': 'hit_location_y',
                               'effective_speed': 'pitch_speed'})
 data['hit'] = [1 if row['events'] in ['single', 'double', 'triple', 'home_run'] else 0 for index, row in data.iterrows()]
+
+# Rotate hit locations so that home plate is at 0,0 and balls in fair territory are in Q1
+points = data[['hit_location_x', 'hit_location_y']].values
+# Known points
+home = np.array([126, 204])
+rf_point = np.array([61, 136])
+
+points_rel = points - home
+rf_rel = rf_point - home
+theta = np.arctan2(rf_rel[1], rf_rel[0])
+cos_t = np.cos(-theta)
+sin_t = np.sin(-theta)
+R = np.array([[cos_t, -sin_t],[sin_t,  cos_t]])
+points_rot = points_rel @ R.T
+data['hit_location_x'] = points_rot[:, 0]
+data['hit_location_y'] = points_rot[:, 1]
 
 # Drop incomplete rows
 data = data.dropna()
