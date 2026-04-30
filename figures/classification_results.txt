@@ -1,0 +1,18 @@
+Best Classification Threshold: 0.63
+Confusion Matrix:
+[[TN, FP]
+ [FN, TP]]
+[[15294  1190]
+ [ 2023  5908]]
+ 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.81      0.99      0.89     16484
+           1       0.98      0.52      0.68      7931
+
+    accuracy                           0.84     24415
+   macro avg       0.89      0.76      0.79     24415
+weighted avg       0.86      0.84      0.82     24415
+
+ROC-AUC Score: 0.9117793403803021

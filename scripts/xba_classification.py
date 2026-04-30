@@ -40,18 +40,23 @@ for t in thresholds:
         best_threshold = t
         best_metrics = confusion_matrix(y_test, y_pred)
 
-print(f"Best Threshold: {best_threshold}")
+output = ""
 
-print("Confusion Matrix:")
-print("[[TN, FP]")
-print(" [FN, TP]]")
-print(best_metrics)
+output += (f"Best Classification Threshold: {best_threshold}")
 
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
+output += ("\nConfusion Matrix:")
+output += ("\n[[TN, FP]\n [FN, TP]]\n")
+output += (str(best_metrics))
+
+output += ("\n\nClassification Report:\n")
+output += (classification_report(y_test, y_pred))
 
 roc_auc = roc_auc_score(y_test, y_probs)
-print(f"ROC-AUC Score: {roc_auc}")
+output += (f"\nROC-AUC Score: {roc_auc}")
+
+print(output)
+with open("figures/classification_results.txt", "w") as f:
+    f.write(output)
 
 fpr, tpr, _ = roc_curve(y_test, y_probs)
 plt.plot(fpr, tpr)

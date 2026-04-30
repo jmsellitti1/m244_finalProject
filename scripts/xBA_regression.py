@@ -37,8 +37,14 @@ y_pred = 1 / (1 + np.exp(-y_pred_logit)) # Sigmoid activation function
 mse = mean_squared_error(y_test_original, y_pred)
 r2 = r2_score(y_test_original, y_pred)
 
-print(f"Mean Squared Error: {mse}")
-print(f"R^2 Score: {r2}")
+output = ""
+
+output += (f"Mean Squared Error: {mse}")
+output += (f"\nR^2 Score: {r2}")
+
+print(output)
+with open("figures/regression_results.txt", "w") as f:
+    f.write(output)
 
 plt.scatter(y_test_original, y_pred, alpha=0.5)
 plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
