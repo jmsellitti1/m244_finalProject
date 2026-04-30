@@ -36,3 +36,14 @@ for i, team in enumerate(team_df.index):
     plt.annotate(team, (team_df['Win%'].iloc[i], team_df['xBA'].iloc[i]),
                  textcoords="offset points", xytext=(0, 10), ha='center', fontsize=8)
 plt.savefig("figures/team_xba_vs_win%.png")
+
+plt.figure(figsize=(10, 6))
+plt.scatter(team_df['avg'], team_df['Win%'])
+plt.xlabel('Actual Batting Average')
+plt.ylabel('Win Percentage')
+plt.title('Team Actual Batting Average vs Win Percentage for 2025 Season')
+plt.grid()
+for i, team in enumerate(team_df.index):
+    plt.annotate(team, (team_df['avg'].iloc[i], team_df['Win%'].iloc[i]),
+                 textcoords="offset points", xytext=(0, 10), ha='center', fontsize=8)
+plt.savefig("figures/team_avg_vs_win%.png")
