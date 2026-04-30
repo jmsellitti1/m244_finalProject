@@ -42,6 +42,11 @@ output = ""
 output += (f"Mean Squared Error: {mse}")
 output += (f"\nR^2 Score: {r2}")
 
+output += ("\n\n5 Most Important Model Coefficients:\n")
+feature_names = model.named_steps['poly'].get_feature_names_out(X.columns)
+for i in np.argsort(np.abs(model.named_steps['reg'].coef_))[-5:][::-1]:
+    output += (f"{feature_names[i]}: {model.named_steps['reg'].coef_[i]:.4f}\n")
+
 print(output)
 with open("figures/regression_results.txt", "w") as f:
     f.write(output)
