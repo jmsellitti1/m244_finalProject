@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-all_pitches = pd.read_parquet("data/2025_all_pitches.parquet")
 data = pd.read_parquet("data/2025_hits.parquet")
 team_stats = pd.read_csv("data/2025_team_stats.csv")
 
