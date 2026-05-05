@@ -26,13 +26,13 @@ plt.savefig("figures/team_xba_vs_avg.png")
 
 team_df['Win%'] = team_stats.set_index('Team').loc[team_df.index]['Win%']
 plt.figure(figsize=(10, 6))
-plt.scatter(team_df['Win%'], team_df['xBA'])
-plt.xlabel('Win Percentage')
-plt.ylabel('xBA')
+plt.scatter(team_df['xBA'], team_df['Win%'])
+plt.xlabel('xBA')
+plt.ylabel('Win Percentage')
 plt.title('Team xBA vs Win Percentage for 2025 Season')
 plt.grid()
 for i, team in enumerate(team_df.index):
-    plt.annotate(team, (team_df['Win%'].iloc[i], team_df['xBA'].iloc[i]),
+    plt.annotate(team, (team_df['xBA'].iloc[i], team_df['Win%'].iloc[i]),
                  textcoords="offset points", xytext=(0, 10), ha='center', fontsize=8)
 plt.savefig("figures/team_xba_vs_win%.png")
 
