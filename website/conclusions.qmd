@@ -1,0 +1,16 @@
+---
+title: "Conclusions"
+format: 
+  html:
+    page-layout: full
+    theme: cosmo
+    toc: true
+    toc-title: "Contents"
+    embed-resources: true
+    standalone: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+Conclusions page
