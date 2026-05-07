@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data",
+    "section": "",
+    "text": "Scraping\nTo scrape our data for this project, we are using the pybaseball library. This module contains a multitude of all-purpose functions to access the BaseballReference and Baseball Savant datasets. Through the MLB’s Statcast system, this gives us data for every pitch from the 2025 MLB season with 118 variables, including pitcher and batter ID, pitch type, the result of the pitch, larger game and context data, etc.\nThe pybaseball call we used was: “all_pitches = statcast(‘2025-03-27’, ‘2025-09-28’)”\n\n\n\n\n\n\n\n\n\npitch_type\ngame_date\nrelease_speed\nrelease_pos_x\nrelease_pos_z\nplayer_name\nbatter\npitcher\nevents\ndescription\n...\nbatter_days_until_next_game\napi_break_z_with_gravity\napi_break_x_arm\napi_break_x_batter_in\narm_angle\nattack_angle\nattack_direction\nswing_path_tilt\nintercept_ball_minus_batter_pos_x_inches\nintercept_ball_minus_batter_pos_y_inches\n\n\n\n\n0\nFF\n2025-09-28\n95.7\n-2.15\n5.21\nWeissert, Greg\n678009\n669711\nfield_out\nhit_into_play\n...\n2.0\n1.56\n0.71\n-0.71\n20.9\n5.991833\n-1.319512\n28.782516\n41.559201\n30.599805\n\n\n1\nFF\n2025-09-28\n95.1\n-1.91\n5.10\nWeissert, Greg\n668670\n669711\nstrikeout\ncalled_strike\n...\n9.0\n1.59\n0.93\n0.93\n20.5\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n2\nSI\n2025-09-28\n95.2\n-2.38\n4.77\nWeissert, Greg\n628451\n669711\nsingle\nhit_into_play\n...\n9.0\n2.25\n1.47\n1.47\n12.2\n3.499958\n4.504044\n28.666057\n43.129212\n23.469592\n\n\n3\nFF\n2025-09-28\n94.4\n-2.08\n5.10\nWeissert, Greg\n700242\n669711\nwalk\nball\n...\nNaN\n1.49\n0.85\n-0.85\n20.1\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nST\n2025-09-28\n80.8\n-3.05\n3.94\nWeissert, Greg\n595879\n669711\nstrikeout\nswinging_strike\n...\n2.0\n2.89\n-1.73\n-1.73\n-3.2\n20.446141\n-37.645879\n23.644508\n60.178614\n51.512500\n\n\n\n\n5 rows × 118 columns\n\n\n\nAfter filtering by pitches that resulted in the end of an at-bat, this gave us 183,092 baseball events.\n\n\nData Cleaning\nFurther data cleaning steps include filtering by only pitches that resulted in a ball in play (i.e. that have a valid xBA value), removing walks and strikeouts, and standardizing hit location coordinates to better visualize certain features.\n\n\n\nStandardized Hit Coordinates\n\n\nWe then had to choose a versatile mix of input features to use for our modeling. We wanted to include a mix of features that describe the pitch itself, as well as the resulting hit. The dataset also includes metadata about the game, including player and team IDs, and xBA as the outcome/predictive variable.\nEventually, our final feature set included 122,071 observations with 7 input values as well as some metadata and labeling features.\n\n\nFinal Codebook\n\n\n\nTable 1: Codebook\n\n\n\n\n\n\n\n\n\n\n\nVariable Name\nDescription\nType\nValues / Notes\n\n\n\n\ngame_pk\nUnique identifier for each game\nCategorical\n6 digit ID code\n\n\nbatter\nUnique identifier for each batter\nCategorical\n6 digit ID code\n\n\npitcher\nUnique identifier for each pitcher\nCategorical\n6 digit ID code\n\n\nlaunch_speed\nSpeed of the ball off of the bat\nNumerical\nMeasured in miles per hour\n\n\nlaunch_angle\nVertical angle of the ball off of the bat\nNumerical\nMeasured in degrees; negative = downward, positive = upward\n\n\nhit_distance\nDistance or estimated distance ball traveled in air before hitting the ground\nNumerical\nMeasured in feet; estimated for home runs that landed in the stands\n\n\nhit_location_x\nx coordinate of the location where the ball first landed\nNumerical\nlocation; used to estimate the direction that the ball was hit\n\n\nhit_location_y\ny coordinate of the location where the ball first landed\nNumerical\nlocation; used to estimate the direction that the ball was hit\n\n\npitch_speed\nSpeed of the pitch at release\nNumerical\nMeasured in mph\n\n\nrelease_spin_rate\nRotation of the ball at release\nNumerical\nMeasured in rotations per minute (rpm)\n\n\nxBA\nExpected batting average\nNumerical (proportion)\nRange 0-1; Statcast metric that measures the probability that a ball with the given launch speed and angle will result in a hit\n\n\nevents\nResult of the play\nCategorical\nsingle, double, triple, home_run, field_out, force_out, grounded_into_double_play, etc\n\n\nteam\nBatting team name\nCategorical\n3-letter MLB team name abbreviations (e.g., BOS = Boston Red Sox, NYY = New York Yankees)\n\n\nhit\nRecords if a hit occurs\nBinary\n0-1; 0 = out, 1 = hit"
+  },
+  {
+    "objectID": "methods.html",
+    "href": "methods.html",
+    "title": "Methods",
+    "section": "",
+    "text": "Methods page"
+  },
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "Results",
+    "section": "",
+    "text": "Results page"
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Intro",
+    "section": "",
+    "text": "Intro page"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Predicting Baseball Hitting Success through Advanced Statcast Metrics",
+    "section": "",
+    "text": "This website documents our final project for M244, using data science techniques to predict the success of a baseball hit based on Statcast data."
+  },
+  {
+    "objectID": "conclusions.html",
+    "href": "conclusions.html",
+    "title": "Conclusions",
+    "section": "",
+    "text": "Conclusions page"
+  }
+]
