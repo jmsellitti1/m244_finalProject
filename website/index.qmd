@@ -1,0 +1,6 @@
+---
+title: "Predicting Baseball Hitting Success through Advanced Statcast Metrics"
+subtitle: "Adam Finnimore, Jacob Sellitti"
+---
+
+This website documents our final project for M244, using data science techniques to predict the success of a baseball hit based on Statcast data.
