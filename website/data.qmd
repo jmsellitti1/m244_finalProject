@@ -34,7 +34,7 @@ After filtering by pitches that resulted in the end of an at-bat, this gave us 1
 
 Further data cleaning steps include filtering by only pitches that resulted in a ball in play (i.e. that have a valid xBA value), removing walks and strikeouts, and standardizing hit location coordinates to better visualize certain features.
 
-![Standardized Hit Coordinates](coordinates.png)
+![Standardized Hit Coordinates](images/coordinates.png)
 
 We then had to choose a versatile mix of input features to use for our modeling. We wanted to include a mix of features that describe the pitch itself, as well as the resulting hit. The dataset also includes metadata about the game, including player and team IDs, and xBA as the outcome/predictive variable.
 

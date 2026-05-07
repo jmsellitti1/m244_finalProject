@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -4076,7 +4111,19 @@ vertical-align: -.125em;
 </header>
 
 
-<p>Methods page</p>
+<p>To predict hitting success, we implemented and compared two distinct modeling approaches with slightly different objectives. First, we trained a linear regression model to estimate the probability that a given batted ball would result in a hit, which is functionally identical to the concept of Expected Batting Average (xBA). This model outputs a continuous probability score, allowing us to interpret results on a granular scale rather than a strict classification.</p>
+<div id="665d1716" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code for model 1?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In parallel, we developed a logistic regression model to directly predict a binary outcome for each batted ball, where each instance is classified as either a hit (1) or not a hit (0). This formulation allows us to evaluate performance in a more traditional classification framework and compare it directly against real-world hit outcomes.</p>
+<div id="d38132f2" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code for model 2?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Because the dataset contained only seven unique variables with meaningful predictive power, we extended both models by incorporating second-degree interaction terms. This allowed us to capture how combinations of variables—rather than just individual features—jointly influence the probability of a hit. By modeling these interactions, we aimed to better reflect the complexity of batted-ball outcomes.</p>
+<p>Finally, we evaluated the logistic regression model using a dynamic classification threshold rather than the default cutoff of 0.5. By adjusting this threshold, we were able to analyze how sensitivity and specificity trade off under different decision rules, and how the model’s interpretation of a “predicted hit” changes depending on the chosen cutoff.</p>
+<div id="c9578b9b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training block(s)?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 

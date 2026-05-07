@@ -13,4 +13,10 @@ editor:
     wrap: 72
 ---
 
-Intro page
+![](images/mookie.webp)
+
+Predicting hitting success in baseball is a challenging problem because there is no single, universally accepted measure of a batter’s skill. Even in an era where baseball is one of the most heavily data-driven sports, especially since the introduction of MLB’s Statcast system in 2015, capturing overall hitting ability remains complex. One promising approach is the use of Expected Batting Average (xBA), a metric that estimates the likelihood that a given batted ball will result in a hit based on its characteristics, such as launch angle and exit velocity. xBA is already computed within Statcast using historical outcomes of similar batted balls, though the exact underlying model is not publicly disclosed and is generally understood to involve some type of nearest-neighbor style comparisons.
+
+In this project, our goal is to build a model that predicts the probability of a batted ball becoming a hit using historical data in a way that aligns with or approximates xBA. Additionally, we will build a classification model to predict the binary outcome of each batted ball (hit or out). We then compare these predictions against traditional hitting statistics to better understand player performance and its relationship to overall seasonal success at both the player and team level.
+
+Our motivation for this topic is driven by a personal interest in baseball and its data. The challenge of quantifying and predicting hitting success has practical implications for player evaluation, team strategy, and fan engagement. We hope to contribute to the past and ongoing literature about how best to measure and understand baseball performance.
