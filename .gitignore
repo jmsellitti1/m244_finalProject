@@ -2,3 +2,5 @@ data/*.parquet
 **/.DS_Store
 **/.quarto/
 **/*.quarto_ipynb
+website/.gitignore
+website/_site/*
