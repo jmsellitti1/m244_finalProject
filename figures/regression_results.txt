@@ -1,9 +1,0 @@
-Mean Squared Error: 0.030102349141805998
-R^2 Score: 0.6272314715679375
-
-5 Most Important Model Coefficients:
-hit_distance: 3.6980
-launch_speed^2: 2.9889
-launch_angle hit_distance: -2.8950
-launch_speed: -2.2277
-hit_location_x^2: 1.5922
