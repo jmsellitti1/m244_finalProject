@@ -13,22 +13,30 @@ editor:
     wrap: 72
 ---
 
+```{python}
+#| echo: false
+import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import f1_score, confusion_matrix
+```
+
+### Linear Regression Model
+
 To predict hitting success, we implemented and compared two distinct modeling approaches with slightly different objectives. First, we trained a linear regression model to estimate the probability that a given batted ball would result in a hit, which is functionally identical to the concept of Expected Batting Average (xBA). This model outputs a continuous probability score, allowing us to interpret results on a granular scale rather than a strict classification.
 
-```{python}
-# Code for model 1?
-```
+### Logistic Regression Model
 
 In parallel, we developed a logistic regression model to directly predict a binary outcome for each batted ball, where each instance is classified as either a hit (1) or not a hit (0). This formulation allows us to evaluate performance in a more traditional classification framework and compare it directly against real-world hit outcomes.
 
-```{python}
-# Code for model 2?
-```
+### Model Training
 
 Because the dataset contained only seven unique variables with meaningful predictive power, we extended both models by incorporating second-degree interaction terms. This allowed us to capture how combinations of variables—rather than just individual features—jointly influence the probability of a hit. By modeling these interactions, we aimed to better reflect the complexity of batted-ball outcomes.
 
-Finally, we evaluated the logistic regression model using a dynamic classification threshold rather than the default cutoff of 0.5. By adjusting this threshold, we were able to analyze how sensitivity and specificity trade off under different decision rules, and how the model’s interpretation of a “predicted hit” changes depending on the chosen cutoff.
+### Evaluation Metrics
 
-```{python}
-# Training block(s)?
-```
+We chose the evaluate the accuracy of our linear regression model using MSE and R^2, which are standard metrics for a task with a numerical outcome. Meanwhile, for the logistic regression model, we evaluated performance using the F1 score and confusion matrix, which are more appropriate for binary classification tasks. The F1 score provides a balance between precision and recall, while the confusion matrix allows us to analyze the types of errors the model is making (false positives vs. false negatives). Additionally, we visualized the model's performance using an ROC curve and its corresponding AUC score to assess the trade-off between sensitivity and specificity across different classification thresholds.
+
+Finally, we evaluated the logistic regression model using a dynamic classification threshold rather than the default cutoff of 0.5. By adjusting this threshold, we were able to analyze how sensitivity and specificity trade off under different decision rules, and how the model’s interpretation of a “predicted hit” changes depending on the chosen cutoff.

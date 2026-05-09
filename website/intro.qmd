@@ -13,7 +13,7 @@ editor:
     wrap: 72
 ---
 
-![](images/mookie.webp)
+![](../figures/mookie.webp)
 
 Predicting hitting success in baseball is a challenging problem because there is no single, universally accepted measure of a batter’s skill. Even in an era where baseball is one of the most heavily data-driven sports, especially since the introduction of MLB’s Statcast system in 2015, capturing overall hitting ability remains complex. One promising approach is the use of Expected Batting Average (xBA), a metric that estimates the likelihood that a given batted ball will result in a hit based on its characteristics, such as launch angle and exit velocity. xBA is already computed within Statcast using historical outcomes of similar batted balls, though the exact underlying model is not publicly disclosed and is generally understood to involve some type of nearest-neighbor style comparisons.
 

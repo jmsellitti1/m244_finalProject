@@ -34,9 +34,10 @@ After filtering by pitches that resulted in the end of an at-bat, this gave us 1
 
 Further data cleaning steps include filtering by only pitches that resulted in a ball in play (i.e. that have a valid xBA value), removing walks and strikeouts, and standardizing hit location coordinates to better visualize certain features.
 
-![Standardized Hit Coordinates](images/coordinates.png)
+![](../figures/coordinates.png)
 
-We then had to choose a versatile mix of input features to use for our modeling. We wanted to include a mix of features that describe the pitch itself, as well as the resulting hit. The dataset also includes metadata about the game, including player and team IDs, and xBA as the outcome/predictive variable.
+We then had to choose a versatile mix of input features to use for our modeling. We wanted to include a mix of features that 
+describe the pitch itself, as well as the resulting hit. The dataset also includes metadata about the game, including player and team IDs, and xBA as the outcome/predictive variable.
 
 Eventually, our final feature set included 122,071 observations with 7 input values as well as some metadata and labeling features.
 
@@ -58,5 +59,21 @@ Eventually, our final feature set included 122,071 observations with 7 input val
 | events | Result of the play | Categorical | single, double, triple, home_run, field_out, force_out, grounded_into_double_play, etc |
 | team | Batting team name | Categorical | 3-letter MLB team name abbreviations (e.g., BOS = Boston Red Sox, NYY = New York Yankees) |
 | hit | Records if a hit occurs | Binary | 0-1; 0 = out, 1 = hit |
-
 : Codebook {#tbl-codebook}
+
+### Visualizations
+
+With this finalized set of features, we used our Exploratory Data Analysis to visualize patterns and correlations in the data.
+
+For instance, we can visualize the relationship/correlation between batting average and expected batting average to see which players may have been the luckiest vs. unluckiest (filtered by players that had more than 50 PA in the 2025 season).
+
+![](../figures/player_xba_vs_avg.png)
+
+By grouping this data by player ID and hit binary outcome, we can see this data for a specific player and get a better sense of how xBA may be correlated with actual hitting success.
+
+![2025 xBA data for Aaron Judge](../figures/player_xba_boxplot.png)
+
+Lastly, we grouped the data by team and visualized it against actual batting average and win percentage to review any potential connections at the team level.
+
+![](../figures/team_xba_vs_avg.png)
+![](../figures/team_xba_vs_win%.png)
