@@ -15,7 +15,7 @@ editor:
 
 ### Scraping
 
-To scrape our data for this project, we are using the pybaseball library. This module contains a multitude of all-purpose functions to access the BaseballReference and Baseball Savant datasets. Through the MLB's Statcast system, this gives us data for every pitch from the 2025 MLB season with 118 variables, including pitcher and batter ID, pitch type, the result of the pitch, larger game and context data, etc.
+To scrape our data for this project, we are using the [pybaseball](https://github.com/jldbc/pybaseball/tree/master/docs) library. This module contains a multitude of all-purpose functions to access the BaseballReference and Baseball Savant datasets. Through the MLB's Statcast system, this gives us data for every pitch from the 2025 MLB season with 118 variables, including pitcher and batter ID, pitch type, the result of the pitch, larger game and context data, etc.
 
 The pybaseball call we used was:
 "all_pitches = statcast('2025-03-27', '2025-09-28')"
